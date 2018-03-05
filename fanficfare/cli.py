@@ -30,7 +30,7 @@ import sys
 import pickle
 import cookielib as cl
 
-version="2.20.0"
+version="2.23.0"
 
 if sys.version_info < (2, 5) or sys.version_info > (3,0):
     print('This program requires Python 2.5 or newer.  Python 3 is not supported.')
@@ -385,6 +385,8 @@ def do_download(arg,
 
         if options.update and not options.force:
             urlchaptercount = int(adapter.getStoryMetadataOnly().getMetadata('numChapters').replace(',',''))
+            # returns int adjusted for start-end range.
+            urlchaptercount = adapter.getStoryMetadataOnly().getChapterCount()
 
             if chaptercount == urlchaptercount and not options.metaonly:
                 print '%s already contains %d chapters.' % (output_filename, chaptercount)
